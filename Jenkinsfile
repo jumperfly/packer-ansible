@@ -31,7 +31,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'packer build centos-7.json'
+                sh 'packer build packer.json'
             }
         }
     }
