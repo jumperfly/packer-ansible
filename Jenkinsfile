@@ -7,9 +7,9 @@ pipeline {
 
     environment {
         VAGRANT_CLOUD_TOKEN = credentials('vagrant-cloud')
-        BASE_BOX_VERSION = "7.6.1"
+        BASE_BOX_VERSION = "7.7.2"
         ANSIBLE_MAJOR_MINOR = "2.8"
-        ANSIBLE_PATCH = "0"
+        ANSIBLE_PATCH = "5"
     }
 
     stages {
