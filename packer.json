@@ -16,12 +16,14 @@
     ],
     "provisioners": [
         {
+            "type": "file",
+            "source": "ansible.repo",
+            "destination": "/etc/yum.repos.d/ansible.repo"
+        },
+        {
             "type": "shell",
             "inline": [
-                "curl https://bootstrap.pypa.io/get-pip.py -o /tmp/get-pip.py",
-                "python /tmp/get-pip.py",
-                "rm -f /tmp/get-pip.py",
-                "pip install ansible=={{ user `ansible_major_minor` }}.{{user `ansible_patch`}}",
+                "yum -y install ansible-{{ user `ansible_major_minor` }}.{{user `ansible_patch`}}",
                 "curl https://raw.githubusercontent.com/hashicorp/vagrant/v2.2.4/keys/vagrant -o /home/vagrant/.ssh/id_rsa",
                 "chown vagrant:vagrant /home/vagrant/.ssh/id_rsa",
                 "chmod 600 /home/vagrant/.ssh/id_rsa",
