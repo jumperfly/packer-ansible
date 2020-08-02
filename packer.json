@@ -1,8 +1,7 @@
 {
     "variables": {
-        "ansible_major_minor": "{{env `ANSIBLE_MAJOR_MINOR`}}",
-        "ansible_patch": "{{env `ANSIBLE_PATCH`}}",
-        "image_revision": "{{env `BUILD_NUMBER`}}"
+        "ansible_version": "2.9.11",
+        "box_version": "29.11.{{env `BUILD_NUMBER`}}"
     },
     "builders": [
         {
@@ -23,7 +22,7 @@
         {
             "type": "shell",
             "inline": [
-                "yum -y install ansible-{{ user `ansible_major_minor` }}.{{user `ansible_patch`}}",
+                "yum -y install ansible-{{ user `ansible_version` }}",
                 "curl https://raw.githubusercontent.com/hashicorp/vagrant/v2.2.4/keys/vagrant -o /home/vagrant/.ssh/id_rsa",
                 "chown vagrant:vagrant /home/vagrant/.ssh/id_rsa",
                 "chmod 600 /home/vagrant/.ssh/id_rsa",
@@ -39,8 +38,8 @@
         [
             {
                 "type": "vagrant-cloud",
-                "box_tag": "jumperfly/ansible-{{ user `ansible_major_minor` }}",
-                "version": "{{user `ansible_patch`}}.{{user `image_revision`}}"
+                "box_tag": "jumperfly/ansible",
+                "version": "{{user `box_version`}}"
             }
         ]
     ]
