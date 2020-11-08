@@ -1,3 +1,4 @@
+timeout: 30m
 steps:
 - id: 'git fetch'
   name: gcr.io/cloud-builders/git
@@ -8,7 +9,6 @@ steps:
   args: [ '-c', "echo export VAGRANT_CLOUD_TOKEN=$(gcloud secrets versions access latest --secret=vagrant-cloud --format='get(payload.data)' | tr '_-' '/+' | base64 -d) > token.env" ]
 - id: build
   name: 'gcr.io/jumperfly/remote-builder'
-  timeout: 30m
   env:
     - ZONE=europe-west1-b
     - INSTANCE_ARGS=--machine-type=n2-standard-2 --boot-disk-type=pd-ssd --image-project=jumperfly --image-family=virtualbox-6-1
