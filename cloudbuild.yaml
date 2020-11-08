@@ -11,5 +11,5 @@ steps:
   timeout: 30m
   env:
     - ZONE=europe-west1-b
-    - INSTANCE_ARGS=--machine-type=n2-standard-2 --boot-disk-type=pd-ssd --boot-disk-size=500 --image-project=jumperfly --image-family=virtualbox-6-1
+    - INSTANCE_ARGS=--machine-type=n2-standard-2 --boot-disk-type=pd-ssd --image-project=jumperfly --image-family=virtualbox-6-1
     - COMMAND=cd workspace && source token.env && packer build -var build_number=$(git rev-list --count HEAD) packer.json
