@@ -3,13 +3,17 @@ steps:
 - id: 'git fetch'
   name: gcr.io/cloud-builders/git
   args: ['fetch', '--unshallow']
+- id: 'builder number'
+  name: gcr.io/cloud-builders/git
+  entrypoint: bash
+  args: ['-c', 'echo export BUILD_NUMBER=$(git rev-list --count HEAD) >> packer.env']
 - id: fetch secret
   name: gcr.io/cloud-builders/gcloud
   entrypoint: bash
-  args: [ '-c', "echo export VAGRANT_CLOUD_TOKEN=$(gcloud secrets versions access latest --secret=vagrant-cloud --format='get(payload.data)' | tr '_-' '/+' | base64 -d) > token.env" ]
+  args: [ '-c', "echo export VAGRANT_CLOUD_TOKEN=$(gcloud secrets versions access latest --secret=vagrant-cloud --format='get(payload.data)' | tr '_-' '/+' | base64 -d) >> packer.env" ]
 - id: build
   name: 'gcr.io/jumperfly/remote-builder'
   env:
     - ZONE=europe-west1-b
     - INSTANCE_ARGS=--machine-type=n2-standard-2 --boot-disk-type=pd-ssd --image-project=jumperfly --image-family=virtualbox-6-1
-    - COMMAND=cd workspace && source token.env && packer build -var build_number=$(git rev-list --count HEAD) packer.json
+    - COMMAND=cd workspace && source packer.env && packer build packer.json
