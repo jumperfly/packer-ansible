@@ -1,7 +1,8 @@
 {
     "variables": {
         "ansible_version": "2.9.11",
-        "box_version": "29.11.{{env `BUILD_NUMBER`}}"
+        "build_number": "{{env `BUILD_NUMBER`}}",
+        "box_version": "29.11.{{user `build_number`}}"
     },
     "builders": [
         {
