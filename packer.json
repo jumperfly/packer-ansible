@@ -1,8 +1,8 @@
 {
     "variables": {
-        "ansible_version": "2.9.11",
+        "ansible_version": "2.10.3",
         "build_number": "{{env `BUILD_NUMBER`}}",
-        "box_version": "29.11.{{user `build_number`}}"
+        "box_version": "210.3.{{user `build_number`}}"
     },
     "builders": [
         {
@@ -16,11 +16,6 @@
         }
     ],
     "provisioners": [
-        {
-            "type": "file",
-            "source": "ansible.repo",
-            "destination": "/etc/yum.repos.d/ansible.repo"
-        },
         {
             "type": "shell",
             "script": "ansible.sh",

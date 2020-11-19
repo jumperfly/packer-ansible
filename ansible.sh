@@ -1,7 +1,12 @@
 #!/bin/bash
 
 # Install Ansible
-yum -y install ansible-$ANSIBLE_VERSION
+yum -y install python3 python-virtualenv
+virtualenv -p python3 /opt/ansible
+source /opt/ansible/bin/activate
+pip install --upgrade pip
+pip install ansible==$ANSIBLE_VERSION
+ln -s /opt/ansible/bin/ansible* /usr/bin/
 
 # Use vagrant insecure key for vagrant user
 curl https://raw.githubusercontent.com/hashicorp/vagrant/v2.2.4/keys/vagrant -o /home/vagrant/.ssh/id_rsa
