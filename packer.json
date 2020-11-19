@@ -9,7 +9,7 @@
             "type": "vagrant",
             "provider": "virtualbox",
             "source_path": "jumperfly/centos-7",
-            "box_version": "7.8.1",
+            "box_version": "7.9.16",
             "communicator": "ssh",
             "ssh_username": "root",
             "ssh_password": "vagrant"
@@ -23,16 +23,10 @@
         },
         {
             "type": "shell",
-            "inline": [
-                "yum -y install ansible-{{ user `ansible_version` }}",
-                "curl https://raw.githubusercontent.com/hashicorp/vagrant/v2.2.4/keys/vagrant -o /home/vagrant/.ssh/id_rsa",
-                "chown vagrant:vagrant /home/vagrant/.ssh/id_rsa",
-                "chmod 600 /home/vagrant/.ssh/id_rsa",
-                "dd if=/dev/zero of=/boot/ZERO bs=1M || echo Ignoring expected error",
-                "rm /boot/ZERO",
-                "dd if=/dev/zero of=/ZERO bs=1M || echo Ignoring expected error",
-                "rm /ZERO",
-                "sync"
+            "script": "ansible.sh",
+            "environment_vars": [
+                "PACKER_SKIP_SHRINK_DISK={{user `skip_shrink`}}",
+                "ANSIBLE_VERSION={{user `ansible_version`}}"
             ]
         }
     ],
