@@ -9,6 +9,7 @@ env:
   PACKER_VERSION: "1.10.2"
   LIBVIRT_PLUGIN_VERSION: "0.12.2"
   VAGRANT_CLOUD_TOKEN: ${{ secrets.VAGRANT_CLOUD_TOKEN }}
+  PACKER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }} # https://github.com/hashicorp/packer/issues/12179
 
 jobs:
   packer:
