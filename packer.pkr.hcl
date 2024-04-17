@@ -40,11 +40,11 @@ build {
     execute_command = "sudo sh -c '{{ .Vars }} {{ .Path }}'"
   }
 
-  post-processors {
-    post-processor "vagrant-cloud" {
-      box_tag             = local.box_tag
-      version             = local.box_version
-      version_description = var.box_version_description
-    }
-  }
+  #post-processors {
+  #  post-processor "vagrant-cloud" {
+  #    box_tag             = local.box_tag
+  #    version             = local.box_version
+  #    version_description = var.box_version_description
+  #  }
+  #}
 }
