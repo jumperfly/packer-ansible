@@ -23,8 +23,8 @@ jobs:
 
       - run: sudo apt-get update
       - run: sudo apt-get install --no-install-recommends -y qemu-system-x86 qemu-utils qemu-kvm libvirt-daemon-system vagrant dnsmasq
-      - run: vagrant plugin install vagrant-libvirt --plugin-version $LIBVIRT_PLUGIN_VERSION
       - run: sudo chmod a+rw /dev/kvm
+      - run: vagrant plugin install vagrant-libvirt --plugin-version $LIBVIRT_PLUGIN_VERSION
 
       - name: Compute version and description
         run: |
