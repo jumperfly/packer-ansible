@@ -1,0 +1,34 @@
+name: Packer Build
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  PACKER_VERSION: "1.10.2"
+  VAGRANT_CLOUD_TOKEN: ${{ secrets.VAGRANT_CLOUD_TOKEN }}
+
+jobs:
+  packer:
+    runs-on: ubuntu-22.04
+    name: Run Packer
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-packer@v3
+        with:
+          version: ${{ env.PACKER_VERSION }}
+
+      - run: sudo apt-get update
+      - run: sudo apt-get install --no-install-recommends -y qemu-system-x86 qemu-utils qemu-kvm libvirt-daemon-system vagrant
+      - run: sudo chmod a+rw /dev/kvm
+
+      - name: Compute version and description
+        run: |
+          echo "PKR_VAR_box_version=$(date +'%Y%m%d.%H%M%S')" >> $GITHUB_ENV
+          echo "PKR_VAR_box_version_description=$(git log --pretty=format:'%h: %s')" >> $GITHUB_ENV
+
+      - run: packer init .
+      - run: packer validate .
+      - run: packer build .
