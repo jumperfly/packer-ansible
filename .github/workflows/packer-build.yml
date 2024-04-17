@@ -21,7 +21,7 @@ jobs:
           version: ${{ env.PACKER_VERSION }}
 
       - run: sudo apt-get update
-      - run: sudo apt-get install --no-install-recommends -y qemu-system-x86 qemu-utils qemu-kvm libvirt-daemon-system vagrant
+      - run: sudo apt-get install --no-install-recommends -y qemu-system-x86 qemu-utils qemu-kvm libvirt-daemon-system vagrant dnsmasq
       - run: sudo chmod a+rw /dev/kvm
 
       - name: Compute version and description
