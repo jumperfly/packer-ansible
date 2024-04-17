@@ -33,4 +33,4 @@ jobs:
 
       - run: packer init .
       - run: packer validate .
-      - run: packer build .
+      - run: PACKER_LOG=1 packer build .
