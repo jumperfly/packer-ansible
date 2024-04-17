@@ -11,6 +11,7 @@ Requires
   - packer 1.10.2+
   - vagrant 2.4.1+
   - libvirt
+  - vagrant-libvirt plugin 0.12.2+
 
 Run `packer init .` before the first build.
 

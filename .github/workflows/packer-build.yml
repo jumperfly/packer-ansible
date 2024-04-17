@@ -7,6 +7,7 @@ on:
 
 env:
   PACKER_VERSION: "1.10.2"
+  LIBVIRT_PLUGIN_VERSION: "0.12.2"
   VAGRANT_CLOUD_TOKEN: ${{ secrets.VAGRANT_CLOUD_TOKEN }}
 
 jobs:
@@ -22,6 +23,7 @@ jobs:
 
       - run: sudo apt-get update
       - run: sudo apt-get install --no-install-recommends -y qemu-system-x86 qemu-utils qemu-kvm libvirt-daemon-system vagrant dnsmasq
+      - run: vagrant plugin install vagrant-libvirt --plugin-version $LIBVIRT_PLUGIN_VERSION
       - run: sudo chmod a+rw /dev/kvm
 
       - name: Compute version and description
